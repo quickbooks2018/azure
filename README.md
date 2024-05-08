@@ -96,3 +96,28 @@ Differences in Usage:
 Container Instances are lightweight, faster to start, and ideal for microservices architecture with stateless, short-lived applications.
 Virtual Machines offer more flexibility, are suitable for stateful applications, and can handle tasks requiring persistent storage and extensive configuration.
 ```
+
+- Run Latest Ubuntu LTS VM with Azure CLI
+
+```bash
+export RG=$(az group list --output json | jq -r '.[0].name')
+az vm create \
+  --resource-group "$RG" \
+  --location "East US" \
+  --name AzureUbuntuVM \
+  --image Ubuntu2204 \
+  --admin-username azureuser \
+  --generate-ssh-keys \
+  --public-ip-address-allocation static \
+  --nsg-rule SSH
+```
+
+- To access a VM, use the following command:
+
+```bash
+az vm show --resource-group "$RG" --name AzureUbuntuVM --show-details --query publicIps -o tsv
+chmod 400 ~/path/to/your/private_key
+ssh -i ~/path/to/your/private_key azureuser@<public_ip>
+```
+
+
