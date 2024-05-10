@@ -440,3 +440,5 @@ ssh -i ~/path/to/your/private_key azureuser@<public_ip>
   }
 }
 ```
+
+- Azure Quick Start Templates https://github.com/Azure/azure-quickstart-templates
